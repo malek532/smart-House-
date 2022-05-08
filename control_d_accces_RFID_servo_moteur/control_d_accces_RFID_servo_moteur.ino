@@ -5,9 +5,9 @@
 int pos = 0;
 
 Servo servo_9;
-#define SS_PIN 10  // link SS_PIN port 10
-#define RST_PIN 9  // link RST_PIN port 9
-MFRC522 mfrc522(SS_PIN, RST_PIN); //create MFRC522 instance
+#define SS_PIN 10  
+#define RST_PIN 9  
+MFRC522 mfrc522(SS_PIN, RST_PIN); 
 void setup() {
   servo_9.attach(6);
   Serial.begin(9600);
@@ -19,16 +19,15 @@ void setup() {
 }
 
 void loop() {
-  // put your main code here, to run repeatedly
-  if (!mfrc522.PICC_IsNewCardPresent())//Check if there is a new card
+  if (!mfrc522.PICC_IsNewCardPresent())
   {
     return;
   }
-  if (!mfrc522.PICC_ReadCardSerial())//Check if there is a card
+  if (!mfrc522.PICC_ReadCardSerial())
   {
     return;
   }
-  //Show UID on Serial
+  
   Serial.print("UID tag :");
   String content = "";
   byte letter;
@@ -41,7 +40,7 @@ void loop() {
   Serial.println();
   Serial.print("Message : ");
   content.toUpperCase();
-  if (content.substring(1) == "B3 35 5B 11")//substring chaine
+  if (content.substring(1) == "B3 35 5B 11")
   {
     for (pos = 90; pos >= 0; pos--) {
       servo_9.write(pos);
