@@ -3,29 +3,29 @@
 #include <DHT.h>
 #include <Adafruit_Sensor.h>
 
-#define DHTPIN 2  //Digital pin
-#define DHTTYPE DHT11 //define card (or DHT11)
+#define DHTPIN 2  
+#define DHTTYPE DHT11 
 DHT dht(DHTPIN, DHTTYPE);
 //WiFi
-const char *ssid = "DESKTOP-NOL29JG 2717 iso"; //Wifi Name
-const char *password = "youcandoit"; //Wifi password
+const char *ssid = "DESKTOP-NOL29JG 2717 iso";
+const char *password = "youcandoit"; 
 
 //MQTT Broker
-//const char *mqtt_broker = "141.94.175.18" //broker address
+//const char *mqtt_broker = "141.94.175.18" 
 const char *mqtt_broker = "robotn-cloud-server.robotika.systems";
-const char *mqtt_username = "robotika";
-const char *mqtt_password = "robotika";
+const char *mqtt_username = "*****";
+const char *mqtt_password = "******";
 const int mqtt_port = 1883;
 
-//#define topic_1 "Hello everyone" //topic
+//#define topic_1 "Hello everyone" 
 WiFiClient espClient;
 PubSubClient client(espClient);
 
-void callback(char* topic, byte* payload, unsigned int length) {//topic id  & payload contenu(byte) // intermediaire entre broker & utilisateur
+void callback(char* topic, byte* payload, unsigned int length) 
   Serial.print("Message arrived [");
   Serial.print(topic);
   Serial.print("] ");
-  for (int i = 0; i < length; i++) {//byte to char
+  for (int i = 0; i < length; i++) 
     Serial.print((char)payload[i]);
   }
   Serial.println();
@@ -46,8 +46,8 @@ void setup() {
   while (!client.connected()) {
     delay(2000);
     float h = dht.readHumidity(); //read humidity
-    float t = dht.readTemperature(); //read temperature Celsius
-    float f = dht.readTemperature(true); //read temperature Fahrenheit
+    float t = dht.readTemperature(); 
+    float f = dht.readTemperature(true);
     if (isnan(h) || isnan(t) || isnan(f)) {
       Serial.println(F("Failed to read from DHT sensor!"));
       return;
